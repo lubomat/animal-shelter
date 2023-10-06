@@ -68,5 +68,8 @@ public class AnimalController {
         }
     }
 
-
+    @DeleteMapping("/{id}")
+    public int delete(@PathVariable("id") int id) {
+        return animalRepository.delete(id);
+    }
 }

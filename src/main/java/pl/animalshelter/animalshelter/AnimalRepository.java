@@ -36,4 +36,8 @@ public class AnimalRepository {
         return jdbcTemplate.update("UPDATE animal SET name=?, race=?, age=? WHERE id=?",
                 animal.getName(), animal.getRace(), animal.getAge(), animal.getId());
     }
+
+    public int delete(int id) {
+        return jdbcTemplate.update("DELETE FROM animal WHERE id=?", id);
+    }
 }
