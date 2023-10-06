@@ -25,7 +25,7 @@ public class AnimalController {
         return animalRepository.getAll();
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Animal getById(@PathVariable("id") int id) {
         return animalRepository.getById(id);
     }
@@ -35,7 +35,7 @@ public class AnimalController {
         return animalRepository.save(animals);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}")          // przy tej metodzie trzeba podawac wszystkie parametry
     public int update(@PathVariable("id") int id, @RequestBody Animal updatedAnimal) {
         Animal animal = animalRepository.getById(id);
 
@@ -51,4 +51,22 @@ public class AnimalController {
             return -1;
         }
     }
+    @PatchMapping("/{id}")
+    public int partiallyUpdate(@PathVariable("id") int id, @RequestBody Animal updatedAnimal) {
+        Animal animal = animalRepository.getById(id);
+
+        if (animal != null) {
+            if (updatedAnimal.getName() != null) animal.setName(updatedAnimal.getName());
+            if (updatedAnimal.getRace() != null) animal.setName(updatedAnimal.getName());
+            if (updatedAnimal.getAge() > 0) animal.setAge(updatedAnimal.getAge());
+
+            animalRepository.update(animal);
+
+            return 1;
+        }else {
+            return -1;
+        }
+    }
+
+
 }
