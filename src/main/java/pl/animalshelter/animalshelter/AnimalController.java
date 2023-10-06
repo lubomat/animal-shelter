@@ -35,4 +35,20 @@ public class AnimalController {
         return animalRepository.save(animals);
     }
 
+    @PutMapping("/{id}")
+    public int update(@PathVariable("id") int id, @RequestBody Animal updatedAnimal) {
+        Animal animal = animalRepository.getById(id);
+
+        if (animal != null) {
+            animal.setName(updatedAnimal.getName());
+            animal.setRace(updatedAnimal.getRace());
+            animal.setAge(updatedAnimal.getAge());
+
+            animalRepository.update(animal);
+
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 }

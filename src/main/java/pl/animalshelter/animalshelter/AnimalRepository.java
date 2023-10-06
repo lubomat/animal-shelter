@@ -14,12 +14,12 @@ public class AnimalRepository {
     JdbcTemplate jdbcTemplate;
 
     public List<Animal> getAll() {
-        return jdbcTemplate.query("SELECT id, name, race FROM animal",
+        return jdbcTemplate.query("SELECT id, name, race, age FROM animal",
                 BeanPropertyRowMapper.newInstance(Animal.class));
     }
 
     public Animal getById(int id) {
-        return jdbcTemplate.queryForObject("SELECT id, name, race FROM animal WHERE " +
+        return jdbcTemplate.queryForObject("SELECT id, name, race, age FROM animal WHERE " +
                 "id = ?", BeanPropertyRowMapper.newInstance(Animal.class), id);
 
     }
@@ -30,5 +30,10 @@ public class AnimalRepository {
                         animal.getName(),animal.getRace(),animal.getAge()
                 ));
         return 1;
+    }
+
+    public int update(Animal animal) {
+        return jdbcTemplate.update("UPDATE animal SET name=?, race=?, age=? WHERE id=?",
+                animal.getName(), animal.getRace(), animal.getAge(), animal.getId());
     }
 }
