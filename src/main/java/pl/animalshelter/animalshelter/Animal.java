@@ -11,5 +11,6 @@ public class Animal {
     private int id;
     private String name;
     private String race;
+    private int age;
 
 }

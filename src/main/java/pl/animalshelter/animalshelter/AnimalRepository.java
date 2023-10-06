@@ -23,4 +23,12 @@ public class AnimalRepository {
                 "id = ?", BeanPropertyRowMapper.newInstance(Animal.class), id);
 
     }
+
+    public int save(List<Animal> animals) {
+        animals.forEach(animal -> jdbcTemplate
+                .update("INSERT INTO animal(name, race, age) VALUES (?, ?, ?)",
+                        animal.getName(),animal.getRace(),animal.getAge()
+                ));
+        return 1;
+    }
 }
